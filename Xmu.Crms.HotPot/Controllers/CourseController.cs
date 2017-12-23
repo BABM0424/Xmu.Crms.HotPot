@@ -77,8 +77,8 @@ namespace Xmu.Crms.HotPot.Controllers
             return NoContent();
         }
 
-        [HttpGet("/course/{courseId:long}/class")]
-        public IActionResult GetClassesByCourseId([FromRoute] string courseName)
+        [HttpGet("/course/{courseName:string}/class")]
+        public IActionResult GetClassesByCourseName([FromRoute] string courseName)
         {
             try
             {
@@ -90,13 +90,14 @@ namespace Xmu.Crms.HotPot.Controllers
                 return StatusCode(404, new { msg = "该课程包含的班级不存在!" });
             }
         }
-        /*  在每个Service里都没找到相关调用？是否考虑一下这个返回是否有意义？
+
         [HttpPost("/course/{courseId:long}/class")]
         public IActionResult CreateClassByCourseId([FromRoute] long courseId, [FromBody] ClassInfo newClass)
         {
-            return Created("/class/1", new { id = 1 });
+            long x=InsertClassById(User.Id,courseId,newClass);
+            return NoContent();
         }
-        */
+        
         [HttpGet("/course/{courseId:long}/seminar")]
         public IActionResult GetSeminarsByCourseId([FromRoute] long courseId)
         {
